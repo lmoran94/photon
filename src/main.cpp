@@ -3,6 +3,8 @@
 #include <ctime>
 #include <iostream>
 
+//! This is a comment. Teehee!
+
 double rand_Num();
 double r;
 
