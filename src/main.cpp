@@ -9,74 +9,74 @@ double r;
 
 class Particle {
 
-public:
-  std::array<double, 3> get_pos() const { return m_pos; }
-  std::array<double, 3> get_norm() const { return m_norm; }
+  public:
+    std::array<double, 3> get_pos() const { return m_pos; }
+    std::array<double, 3> get_norm() const { return m_norm; }
 
-protected:
-  std::array<double, 3> m_pos;
-  std::array<double, 3> m_norm;
-  /*double xpos
-  double ypos
-  double zpos*/
-  double theta;
-  double phi;
-  double nx;
-  double ny;
-  double nz;
-  Particle() /*: m_pos({{0.0, 0.0, 0.0}}), theta(acos(2.0*rand_Num()-1.0)),
+  protected:
+    std::array<double, 3> m_pos;
+    std::array<double, 3> m_norm;
+    /*double xpos
+    double ypos
+    double zpos*/
+    double theta;
+    double phi;
+    double nx;
+    double ny;
+    double nz;
+    Particle() /*: m_pos({{0.0, 0.0, 0.0}}), theta(acos(2.0*rand_Num()-1.0)),
                 phi(2.0*M_PI*rand_Num()), m_norm({{sin(theta)*cos(phi),
                 sin(theta)*sin(phi), cos(theta)}})*/
-  {
-    // std::cout << "The initial random theta is:	" << theta << "\n";
-    // std::cout << "The initial random phi is:	" << phi << "\n";
-    // std::cout << "The initial normals are:	" << m_norm[0] << ", " <<
-    // m_norm[1] << ", " << m_norm[2] << "\n";  std::cout << "The initial 1
-    // position is:	" << m_pos[0] << ", " << m_pos[1] << ", " << m_pos[2] <<
-    // "\n";
-  }
+    {
+      // std::cout << "The initial random theta is:	" << theta << "\n";
+      // std::cout << "The initial random phi is:	" << phi << "\n";
+      // std::cout << "The initial normals are:	" << m_norm[0] << ", " <<
+      // m_norm[1] << ", " << m_norm[2] << "\n";  std::cout << "The initial 1
+      // position is:	" << m_pos[0] << ", " << m_pos[1] << ", " << m_pos[2] <<
+      // "\n";
+    }
 };
 
 class Photon : public Particle {
-  double wavelength;
-  double theta;
-  double phi;
-  std::array<double, 3> phot_norm;
-  std::array<double, 3> phot_pos;
-  double taumax;
-  double L;
-  double tau;
-  double rad;
-  double total;
-  int nphoton;
-  double lcount;
-  int count;
+    double wavelength;
+    double theta;
+    double phi;
+    std::array<double, 3> phot_norm;
+    std::array<double, 3> phot_pos;
+    double taumax;
+    double L;
+    double tau;
+    double rad;
+    double total;
+    int nphoton;
+    double lcount;
+    int count;
 
-public:
-  std::array<double, 3> get_phot_pos() const { return phot_pos; }
-  std::array<double, 3> get_phot_norm() const { return phot_norm; }
+  public:
+    std::array<double, 3> get_phot_pos() const { return phot_pos; }
+    std::array<double, 3> get_phot_norm() const { return phot_norm; }
 
-  Photon(double t_wavelength, double t_rad)
-      : Particle(), phot_norm({{0.0, 0.0, 0.0}}), phot_pos({{0.0, 0.0, 0.0}}),
-        wavelength(t_wavelength), rad(t_rad) {}
+    Photon(double t_wavelength, double t_rad)
+        : Particle(), phot_norm({{0.0, 0.0, 0.0}}), phot_pos({{0.0, 0.0, 0.0}}),
+          wavelength(t_wavelength), rad(t_rad) {}
 
-  void scatter() {
-    theta = acos(2.0 * rand_Num() - 1.0);
-    phi = 2.0 * M_PI * rand_Num();
-    phot_norm = {{sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)}};
-  }
+    void scatter() {
+      theta = acos(2.0 * rand_Num() - 1.0);
+      phi = 2.0 * M_PI * rand_Num();
+      phot_norm = {{sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)}};
+    }
 
-  void move(double taumax) {
-    tau = -log(rand_Num());
-    L = tau * (rad / taumax);
-    // lcount += L;
-    phot_pos[0] += L * phot_norm[0];
-    phot_pos[1] += L * phot_norm[1];
-    phot_pos[2] += L * phot_norm[2];
+    void move(double taumax) {
+      tau = -log(rand_Num());
+      L = tau * (rad / taumax);
+      // lcount += L;
+      phot_pos[0] += L * phot_norm[0];
+      phot_pos[1] += L * phot_norm[1];
+      phot_pos[2] += L * phot_norm[2];
 
-    // std::cout << "In move position:	" << phot_pos[0] << " " << phot_pos[1]
-    // << " " << phot_pos[2] << "\n";
-  }
+      // std::cout << "In move position:	" << phot_pos[0] << " " << phot_pos[1]
+      // << " " << phot_pos[2] << "\n";
+    }
 };
 
 double rand_Num() {
@@ -118,7 +118,7 @@ int main() {
       // direction: " << norm[0] << " " << norm[1] << " " << norm[2] << "\n";
 
       while (((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2])) <=
-             (rad * rad)) {
+          (rad * rad)) {
         phot.move(taumax);
         pos = phot.get_phot_pos();
 
